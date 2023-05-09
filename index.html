@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Enviar e-mail</title>
+  </head>
+  <body>
+    <h1>Enviar e-mail</h1>
+    <form>
+      <div>
+      </div>
+      <div>
+        <label for="subject">Assunto:</label>
+        <input type="text" id="subject" name="subject" required />
+      </div>
+      <div>
+        <label for="message">Mensagem:</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <button type="submit">Enviar</button>
+    </form>
+    <script>
+      const form = document.querySelector("form");
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const endpoint = "http://localhost:3000/send-email";
+
+        fetch(endpoint, {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            console.log(response.status);
+            return response.text();
+          })
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      });
+    </script>
+  </body>
+</html>
