@@ -10,20 +10,25 @@ app.use(bodyParser.json());
 
 const transporter = nodemailer.createTransport({
   service: "Gmail",
-  auth: {
+  auth: { //Irei usar Variaveis de Ambiente dotENV
     user: "ebertoncello@notredamecampinas.net.br",
     pass: "Enzzolegal12#",
   },
 });
 
 app.post("/send-email", (req, res) => {
-    const { } = req.body;
-  
+    const { subject , message  } = req.body;
+
+    // Concatenar mensagem
+
+    const updatedSubject = subject + " - Mapa De sala";
+
+
     const mailOptions = {
       from: "ebertoncello@notredamecampinas.net.br",
       to: "enzzocsgo12345678@gmail.com", // endereço de e-mail padrão
-      subject: "OLA GRELUDO",
-      text: "mapa de sala.png",
+      subject: updatedSubject,
+      text: message,
     };
   
     transporter.sendMail(mailOptions, (error, info) => {

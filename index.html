@@ -8,14 +8,12 @@
     <h1>Enviar e-mail</h1>
     <form>
       <div>
+        <label for="subject">nome:</label>
+        <input type="text" id="subject" name="subject"  />
       </div>
       <div>
-        <label for="subject">Assunto:</label>
-        <input type="text" id="subject" name="subject" required />
-      </div>
-      <div>
-        <label for="message">Mensagem:</label>
-        <textarea id="message" name="message" required></textarea>
+        <label for="message">Observaçao:</label>
+        <textarea id="message" name="message" ></textarea>
       </div>
       <button type="submit">Enviar</button>
     </form>
@@ -30,7 +28,13 @@
 
         fetch(endpoint, {
           method: "POST",
-          body: formData,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            subject: formData.get("subject"),
+            message: formData.get("message"),
+          }),
         })
           .then((response) => {
             console.log(response.status);
